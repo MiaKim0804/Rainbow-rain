@@ -1,0 +1,38 @@
+#canvas {
+    margin-top: 40px;
+    border: 0px solid black;
+    box-shadow: black 20px 10px 50px;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(
+        0deg,
+        purple 0%,
+        pink 100%
+    );
+    text-align: center;
+    overflow: hidden;
+   
+}
+
+.btn {
+    width: 250px;
+    height: 80px;
+    font: 20px;
+    background-color: rgb(184, 105, 171);
+    color: black;
+    border: 0px solid white;
+    border-radius: 10px;
+    font-size: 40px;
+    position: relative;
+    box-shadow: rgb(2, 2, 2) 20px 10px 50px;
+}
+
+.start {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
