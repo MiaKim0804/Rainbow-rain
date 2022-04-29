@@ -1,6 +1,5 @@
 #canvas {
-    margin-top: 40px;
-    border: 0px solid black;
+    margin-top: 30px;
     box-shadow: black 20px 10px 50px;
 }
 
@@ -8,19 +7,18 @@ body {
     height: 100vh;
     background: linear-gradient(
         0deg,
-        purple 0%,
+        black 0%,
         pink 100%
     );
     text-align: center;
     overflow: hidden;
-   
 }
 
 .btn {
     width: 250px;
     height: 80px;
     font: 20px;
-    background-color: rgb(184, 105, 171);
+    background-color: rgb(164, 123, 130);
     color: black;
     border: 0px solid white;
     border-radius: 10px;
@@ -30,7 +28,7 @@ body {
 }
 
 .start {
-    position: fixed;
+    position: absolute;
     inset: 0;
     display: flex;
     align-items: center;

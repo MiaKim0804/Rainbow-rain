@@ -7,7 +7,7 @@ const start = document.querySelector('.start');
 let player = {
     x : canvas.width / 2,
     y : 520,
-    radious : 10,
+    radius : 10,
     speed : 5,
 }
 
@@ -28,7 +28,7 @@ function drawGame() {
         enemy.update()
 
         const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y)
-        if (dist - enemy.radious - player.radious < 1) {
+        if (dist - enemy.radius - player.radius < 1) {
             cancelAnimationFrame(animationId)
             start.style.display = 'flex';
         }
@@ -36,17 +36,17 @@ function drawGame() {
 }
 
 function boundryCheck() {
-    if (player.y < player.radious) {
-        player.y = player.radious;
+    if (player.y < player.radius) {
+        player.y = player.radius;
     }
-    if (player.y > canvas.height - player.radious) {
-        player.y = canvas.height - player.radious;
+    if (player.y > canvas.height - player.radius) {
+        player.y = canvas.height - player.radius;
     }
-    if (player.x < player.radious) {
-        player.x = player.radious;
+    if (player.x < player.radius) {
+        player.x = player.radius;
     }
-    if (player.x > canvas.width - player.radious) {
-        player.x = canvas.width - player.radious;
+    if (player.x > canvas.width - player.radius) {
+        player.x = canvas.width - player.radius;
     } 
 }
 
@@ -66,9 +66,9 @@ function inputs () {
 }
 
 function drawCircle(player) {
-    ctx.fillStyle = 'purple';
+    ctx.fillStyle = 'white';
     ctx.beginPath();
-    ctx.arc(player.x, player.y, player.radious, 0, Math.PI * 2);
+    ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
 }
 
@@ -110,101 +110,34 @@ function keyUp(event) {
     }
 }
 
-// const enemy = [        // matix 'T' 
-// [0, 0, 0],
-// [1, 1, 1],
-// [0, 1, 0],
-// ];
-
 class Enemy {
-    constructor (x, y, radious, color, velocity) {
-        this.x = x
-        this.y = y
-        this.radious = radious
-        this.color = color
-        this.velocity = velocity
+    constructor (x, y, radius, color, velocity) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        this.velocity = velocity;
     }
     draw () {
         ctx.beginPath()
-        ctx.arc(this.x, this.y, this.radious, 0, Math.PI *2, false)
-        ctx.fillStyle = this.color
-        ctx.fill()
-        
-        //drawEnemy();
-        
-        // enemy.forEach((row, y) => {
-        //   row.forEach((value, x) => {     // default value = 0 
-        //         if (value !== 0) {
-        //             ctx.fillStyle = this.color;
-        //             ctx.fillRect (x = this.x, y = this.y, 20, 20);
-        //         }
-        //     })
-        // })
-
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
     }
 
     update () {
         this. draw()
-        this.x = this.x + this.velocity.x
         this.y = this.y + this.velocity.y
-    }
-    
+    };
 }
 
-
-// function createPiece (type) {
-//     if (type === 'T') {
-//         return [
-//             [0, 0, 0],
-//             [1, 1, 1],
-//             [0, 1, 0],
-//         ];
-//     } else if (type === 'O') {
-//         return [
-//             [2, 2],
-//             [2, 2],
-//         ];
-//     } else if (type === 'L') {
-//         return [
-//             [0, 3, 0],
-//             [0, 3, 0],
-//             [0, 3, 3],
-//         ];
-//     } else if (type === 'J') {
-//         return [
-//             [0, 4, 0],
-//             [0, 4, 0],
-//             [4, 4, 0],
-//         ];
-//     } else if (type === 'I') {
-//         return [
-//             [0, 5, 0, 0],
-//             [0, 5, 0, 0],
-//             [0, 5, 0, 0],
-//             [0, 5, 0, 0],
-//         ];
-//     } else if (type === 'S') {
-//         return [
-//             [0, 6, 6],
-//             [6, 6, 0],
-//             [0, 0, 0],
-//         ];
-//     } else if (type === 'Z') {
-//         return [
-//             [7, 7, 0],
-//             [0, 7, 7],
-//             [0, 0, 0],
-//         ];
-//     }
-// }
-
-let enemies = []
+let enemies = [];
 
 function init(){
     player = {
         x : canvas.width / 2,
         y : 520,
-        radious : 10,
+        radius : 10,
         speed : 5,
     }
     enemies = []
@@ -213,26 +146,23 @@ function init(){
 function spawnEnemies () {
     setInterval(() => {
         
-        //const pieces = 'ILJOTSZ';
-        //const matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
-        
-        const x = Math.random() * canvas.width
-        const y = 0
-        const radious = Math.random() * (50 - 8) + 8 
-        const color = `hsl(${Math.random() * 360}, 50%, 50%)`
-        const angle = Math.atan(canvas.height / 2 - y, canvas.width / 2 - x)
+        const x = Math.random() * canvas.width;
+        const y = 0;
+        const radius = Math.random() * (50 - 8) + 8 ;
+        const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        const angle = 0* Math.PI / 180;       //Math.atan2(x, y)
         const velocity = {
-            x : Math.cos(angle),
-            y : Math.sin(angle)
-        }
-        enemies.push (new Enemy (x, y, radious, color, velocity))
+            //x : Math.cos(angle),
+            y : Math.cos(angle)
+        };
+        enemies.push (new Enemy (x, y, radius, color, velocity));
     }, 1000);
-}
+};
 
 startBtn.addEventListener('click', () => {
     init();
-    drawGame();
     spawnEnemies ()
+    drawGame();
     start.style.display = 'none';
 })
 
