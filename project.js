@@ -35,46 +35,11 @@ function drawGame() {
     })
 }
 
-function boundryCheck() {
-    if (player.y < player.radius) {
-        player.y = player.radius;
-    }
-    if (player.y > canvas.height - player.radius) {
-        player.y = canvas.height - player.radius;
-    }
-    if (player.x < player.radius) {
-        player.x = player.radius;
-    }
-    if (player.x > canvas.width - player.radius) {
-        player.x = canvas.width - player.radius;
-    } 
-}
-
-function inputs () {
-    if (upPressed) {
-        player.y = player.y - player.speed;
-    }
-    if (downPressed) {
-        player.y = player.y + player.speed;
-    }
-    if (leftPressed) {
-        player.x = player.x - player.speed;
-    }
-    if (rightPressed) {
-        player.x = player.x + player.speed;
-    }
-}
-
 function drawCircle(player) {
     ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
-}
-
-function clearScreen() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';   
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 document.body.addEventListener('keydown', keyDown);
@@ -110,6 +75,41 @@ function keyUp(event) {
     }
 }
 
+function inputs () {
+    if (upPressed) {
+        player.y = player.y - player.speed;
+    }
+    if (downPressed) {
+        player.y = player.y + player.speed;
+    }
+    if (leftPressed) {
+        player.x = player.x - player.speed;
+    }
+    if (rightPressed) {
+        player.x = player.x + player.speed;
+    }
+}
+
+function clearScreen() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';   
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function boundryCheck() {
+    if (player.y < player.radius) {
+        player.y = player.radius;
+    }
+    if (player.y > canvas.height - player.radius) {
+        player.y = canvas.height - player.radius;
+    }
+    if (player.x < player.radius) {
+        player.x = player.radius;
+    }
+    if (player.x > canvas.width - player.radius) {
+        player.x = canvas.width - player.radius;
+    } 
+}
+
 class Enemy {
     constructor (x, y, radius, color, velocity) {
         this.x = x;
@@ -118,6 +118,7 @@ class Enemy {
         this.color = color;
         this.velocity = velocity;
     }
+
     draw () {
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2, false);
@@ -133,6 +134,22 @@ class Enemy {
 
 let enemies = [];
 
+function spawnEnemies () {
+    setInterval(() => {
+        
+        const x = Math.random() * canvas.width;
+        const y = 0;
+        const radius = Math.random() * (50 - 8) + 8 ;
+        const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        const angle = 0* Math.PI / 180;   //Math.atan2(x, y)
+        const velocity = {
+            //x : Math.cos(angle),
+            y : Math.cos(angle)
+        };
+        enemies.push (new Enemy (x, y, radius, color, velocity));
+    }, 1000);
+};
+
 function init(){
     player = {
         x : canvas.width / 2,
@@ -142,22 +159,6 @@ function init(){
     }
     enemies = []
 }
-
-function spawnEnemies () {
-    setInterval(() => {
-        
-        const x = Math.random() * canvas.width;
-        const y = 0;
-        const radius = Math.random() * (50 - 8) + 8 ;
-        const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
-        const angle = 0* Math.PI / 180;       //Math.atan2(x, y)
-        const velocity = {
-            //x : Math.cos(angle),
-            y : Math.cos(angle)
-        };
-        enemies.push (new Enemy (x, y, radius, color, velocity));
-    }, 1000);
-};
 
 startBtn.addEventListener('click', () => {
     init();
